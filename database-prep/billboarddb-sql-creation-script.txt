@@ -1,0 +1,106 @@
+-- Create the database
+CREATE DATABASE BillboardDB;
+USE BillboardDB;
+
+-- Create the Genres table
+CREATE TABLE Genres (
+    genre_id INT AUTO_INCREMENT PRIMARY KEY,  -- Unique identifier for genres
+    name VARCHAR(100) NOT NULL  -- Name of the genre
+);
+
+-- Create the Artists table
+CREATE TABLE Artists (
+    artist_id INT AUTO_INCREMENT PRIMARY KEY,  -- Unique identifier for artists
+    name VARCHAR(255) NOT NULL,  -- Name of the artist
+    country VARCHAR(100),  -- Country of the artist
+    primary_genre_id INT,  -- Foreign key referencing primary genre of the artist
+    FOREIGN KEY (primary_genre_id) REFERENCES Genres(genre_id)  -- Establishes relationship with Genres table
+);
+
+-- Create the Songs table
+CREATE TABLE Songs (
+    song_id INT AUTO_INCREMENT PRIMARY KEY,  -- Unique identifier for songs
+    title VARCHAR(255) NOT NULL,  -- Title of the song
+    artist_id INT,  -- Foreign key referencing the artist of the song
+    genre_id INT,  -- Foreign key referencing the genre of the song
+    release_year INT,  -- Year of release of the song
+    duration TIME,  -- Duration of the song
+    FOREIGN KEY (artist_id) REFERENCES Artists(artist_id),  -- Establishes relationship with Artists table
+    FOREIGN KEY (genre_id) REFERENCES Genres(genre_id)  -- Establishes relationship with Genres table
+);
+
+-- Create the Streams table
+CREATE TABLE Streams (
+    stream_id INT AUTO_INCREMENT PRIMARY KEY,  -- Unique identifier for streams
+    song_id INT,  -- Foreign key referencing the song
+    stream_count INT NOT NULL,  -- Number of streams
+    date DATE NOT NULL,  -- Date of the stream count
+    FOREIGN KEY (song_id) REFERENCES Songs(song_id)  -- Establishes relationship with Songs table
+);
+
+-- Insert sample data into Genres table
+INSERT INTO Genres (name) VALUES
+('Rock'),
+('Pop'),
+('Hip-Hop'),
+('Country'),
+('Jazz'),
+('Classical'),
+('Reggae'),
+('Electronic'),
+('Afrobeat'),
+('K-Pop');
+
+-- Insert sample data into Artists table
+INSERT INTO Artists (name, country, primary_genre_id) VALUES
+('The Beatles', 'United Kingdom', 1),
+('Taylor Swift', 'United States', 2),
+('BTS', 'South Korea', 10),
+('Fela Kuti', 'Nigeria', 9),
+('Youssou N\'Dour', 'Senegal', 9),
+('Salif Keita', 'Mali', 9),
+('Brenda Fassie', 'South Africa', 2),
+('Angelique Kidjo', 'Benin', 9),
+('Ladysmith Black Mambazo', 'South Africa', 7),
+('Ali Farka Touré', 'Mali', 5),
+('Cesária Évora', 'Cape Verde', 6),
+('Lucky Dube', 'South Africa', 7),
+('Koffi Olomidé', 'Congo', 9),
+('Tinariwen', 'Mali', 9),
+('Black Coffee', 'South Africa', 8);
+
+-- Insert sample data into Songs table
+INSERT INTO Songs (title, artist_id, genre_id, release_year, duration) VALUES
+('Come Together', 1, 1, 1969, '00:04:20'),
+('Shake It Off', 2, 2, 2014, '00:03:39'),
+('ON', 3, 10, 2020, '00:04:06'),
+('Zombie', 4, 9, 1976, '00:12:26'),
+('Shaking The Tree', 5, 9, 1989, '00:03:59'),
+('Yeke Yeke', 6, 9, 1987, '00:04:01'),
+('Weekend Special', 7, 2, 1997, '00:04:50'),
+('Agolo', 8, 9, 1991, '00:04:14'),
+('Homeless', 9, 7, 1987, '00:02:45'),
+('Savane', 10, 5, 2006, '00:05:52'),
+('Sodade', 11, 6, 1992, '00:04:55'),
+('Different Colours', 12, 7, 1990, '00:04:08'),
+('Loi', 13, 9, 1992, '00:10:29'),
+('Cler Achel', 14, 9, 2007, '00:04:25'),
+('We Dance Again', 15, 8, 2015, '00:05:34');
+
+-- Insert sample data into Streams table
+INSERT INTO Streams (song_id, stream_count, date) VALUES
+(1, 500000, '2024-06-01'),
+(2, 1500000, '2024-06-01'),
+(3, 2000000, '2024-06-01'),
+(4, 800000, '2024-06-01'),
+(5, 600000, '2024-06-01'),
+(6, 400000, '2024-06-01'),
+(7, 300000, '2024-06-01'),
+(8, 250000, '2024-06-01'),
+(9, 120000, '2024-06-01'),
+(10, 100000, '2024-06-01'),
+(11, 95000, '2024-06-01'),
+(12, 85000, '2024-06-01'),
+(13, 75000, '2024-06-01'),
+(14, 65000, '2024-06-01'),
+(15, 55000, '2024-06-01');
