@@ -90,3 +90,9 @@ if __name__ == '__main__':
         # Create SQLite database and tables
         db.create_all()
     app.run(debug=True)
+
+
+# create venv    =>   virtualenv venv
+#activate venv   =>   venv\Scripts\activate
+#deactivate venv =>   venv\Scripts\deactivate
+
